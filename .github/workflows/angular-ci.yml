@@ -59,7 +59,5 @@ jobs:
       if: success()
       uses: JamesIves/github-pages-deploy-action@4.1.1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        #publish_dir: dist/test
-        folder: ./dist/test1
-        enable_jekyll: true ###
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ./dist/test # The folder the action should deploy. 
