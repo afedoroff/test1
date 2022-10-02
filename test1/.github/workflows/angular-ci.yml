@@ -1,0 +1,65 @@
+# name: Github Pages Deploy
+
+# on:
+#   push:
+#     branches:
+#       - "main"
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
+    
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
+
+#       - name: Install and build
+#         working-directory: ./
+#         run: npm install && npm run gh-build && cp dist/test/index.html dist/test/404.html
+      
+#       - name: Deploy
+#         uses: JamesIves/github-pages-deploy-action@4.1.1
+#         with:
+#           branch: gh-pages # The branch the action should deploy to.
+#           folder: ./dist/test # The folder the action should deploy.        
+
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.18.0'
+
+    - name: Install dependencies
+      run: npm install
+
+    # - name: Run tests
+    #   run: npm run test:headless
+
+    - name: Build
+      run: npm run gh-build
+
+    - name: Deploy
+      if: success()
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        #publish_dir: dist/test
+        folder: ./dist/test1
+        enable_jekyll: true ##
