@@ -11,13 +11,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: '14.18.0'
+        node-version: [14.x]
     
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Install and build
+      - name: Install and Build
         working-directory: ./
         run: npm install && npm run gh-build && cp dist/test1/index.html dist/test1/404.html
       
